@@ -1,3 +1,4 @@
+// plik: src/components/Navigation.jsx
 import React, { useState, useEffect } from "react";
 import {
     AppBar,
@@ -8,7 +9,6 @@ import {
     List,
     ListItem,
     ListItemText,
-    Toolbar,
     Typography,
     useMediaQuery,
     useTheme,
@@ -35,44 +35,19 @@ const Navigation = () => {
         setMobileOpen(!mobileOpen);
     };
 
-    // Główne style AppBar – z efektem mlecznej szyby (jeśli go potrzebujesz).
-    const appBarStyles = {
-        position: "sticky",
-        backgroundColor: scrolled
-            ? "rgba(255, 255, 255, 0.7)"
-            : "rgba(255, 255, 255, 0.1)",
-        backdropFilter: scrolled ? "blur(10px)" : "none",
-        transition: "all 0.3s ease",
-        boxShadow: scrolled ? theme.shadows[4] : "none",
-        color: "#000",
-    };
-
-    // To jest kluczowe miejsce, w którym odwzorowujemy Twoje reguły CSS:
-    // .css-o4pa05 + media queries
+    // Style kontenera nawigacji z użyciem theme.spacing oraz breakpointów
     const containerSx = {
         width: "100%",
-        marginLeft: "auto",
-        marginRight: "auto",
+        mx: "auto",
         boxSizing: "border-box",
-        paddingLeft: "calc(2 * var(--spacing))",
-        paddingRight: "calc(2 * var(--spacing))",
+        px: { xs: theme.spacing(2), sm: theme.spacing(3) },
         display: "flex",
         alignItems: "center",
-        color: "var(--color)",
-        // domyślna wysokość (mobile)
-        height: "var(--layout-header-mobile-height)",
-
-        // breakpoints MUI:
-        // (min-width: 600px) => theme.breakpoints.up("sm")
-        [theme.breakpoints.up("sm")]: {
-            paddingLeft: "calc(3 * var(--spacing))",
-            paddingRight: "calc(3 * var(--spacing))",
-        },
-        // (min-width: 900px) => theme.breakpoints.up("md")
+        color: theme.palette.text.primary,
+        height: "var(--layout-header-mobile-height, 56px)",
         [theme.breakpoints.up("md")]: {
-            height: "var(--layout-header-desktop-height)",
+            height: "var(--layout-header-desktop-height, 72px)",
         },
-        // (min-width: 1200px) => theme.breakpoints.up("lg")
         [theme.breakpoints.up("lg")]: {
             maxWidth: "1200px",
         },
@@ -80,12 +55,12 @@ const Navigation = () => {
 
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-            <Typography variant="h6" sx={{ my: 2 }}>
+            <Typography variant="h6" sx={{ my: theme.spacing(2) }}>
                 <Box
                     component="img"
                     src="/result.png"
-                    alt="Sportowa Platfsorma"
-                    sx={{ width: 160, height: "auto", my: 2 }}
+                    alt="Sportowa Platforma"
+                    sx={{ width: 160, height: "auto", my: theme.spacing(2) }}
                 />
             </Typography>
             <List>
@@ -100,13 +75,18 @@ const Navigation = () => {
 
     return (
         <>
-            <AppBar sx={appBarStyles}>
-                {/*
-          Zamiast domyślnego <Toolbar>,
-          użyjemy <Box> z naszymi stylami containerSx.
-          Możesz też wstawić Toolbar wewnątrz Boxa,
-          ale kluczowe jest, by Box miał te style.
-        */}
+            <AppBar
+                sx={{
+                    position: "sticky",
+                    backgroundColor: scrolled
+                        ? "rgba(255, 255, 255, 0.7)"
+                        : "rgba(255, 255, 255, 0.1)",
+                    backdropFilter: scrolled ? "blur(10px)" : "none",
+                    transition: "all 0.3s ease",
+                    boxShadow: scrolled ? theme.shadows[4] : "none",
+                    color: "#000",
+                }}
+            >
                 <Box sx={containerSx}>
                     {isMobile && (
                         <IconButton
@@ -114,7 +94,7 @@ const Navigation = () => {
                             aria-label="open drawer"
                             edge="start"
                             onClick={handleDrawerToggle}
-                            sx={{ mr: 2 }}
+                            sx={{ mr: theme.spacing(2) }}
                         >
                             <MenuIcon />
                         </IconButton>
@@ -124,7 +104,7 @@ const Navigation = () => {
                             component="img"
                             src="/result.png"
                             alt="Sportowa Platforma"
-                            sx={{ width: 45, height: "auto", my: 2 }}
+                            sx={{ width: 45, height: "auto", my: theme.spacing(2) }}
                         />
                     </Typography>
                     {!isMobile &&
@@ -135,13 +115,13 @@ const Navigation = () => {
                                     color: "inherit",
                                     textTransform: "none",
                                     fontWeight: 500,
-                                    ml: 1,
+                                    ml: theme.spacing(1),
                                 }}
                             >
                                 {item}
                             </Button>
                         ))}
-                    <Button sx={{ color: "inherit", textTransform: "none", ml: 2 }}>
+                    <Button sx={{ color: "inherit", textTransform: "none", ml: theme.spacing(2) }}>
                         Log in
                     </Button>
                 </Box>

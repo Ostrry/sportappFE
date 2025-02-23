@@ -15,57 +15,47 @@ const Banner = ({
             sx={{
                 display: "flex",
                 flexDirection: { xs: "column", md: "row" },
-                alignItems: "anchor-center",
-                justifyContent: "anchor-center",
+                alignItems: "center",
+                justifyContent: "center",
                 minHeight: "40vh",
                 maxWidth: "1200px",
-                margin: "0 auto",
-                // Ustalamy paddingi z lewej i prawej strony
-                pl: { xs: "calc(3 * var(--spacing))", md: "calc(4 * var(--spacing))" },
-                pr: "calc(2 * var(--spacing))",
+                mx: "auto",
+                // Używamy theme.spacing dla paddingów
+                pl: { xs: theme.spacing(3), md: theme.spacing(4) },
+                pr: theme.spacing(2),
                 position: "relative",
-                // Gradient tła + obrazek
-                backgroundImage: `linear-gradient(135deg, rgba(0 0 0 / 7%), rgba(0 0 0 / 0%)), url('${backgroundImage}')`,
+                backgroundImage: `linear-gradient(135deg, rgba(0, 0, 0, 0.07), rgba(0, 0, 0, 0)), url('${backgroundImage}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                color: "rgba(26,32,60,0.85)",
+                color: theme.palette.text.secondary,
                 borderRadius: 2,
             }}
         >
-            {/* LEWA KOLUMNA: TEKST */}
+            {/* Lewa kolumna: Tekst */}
             <Box
                 sx={{
                     flex: 1,
                     textAlign: { xs: "center", md: "left" },
-                    pr: { md: 4 },
-                    mb: { xs: 3, md: 0 },
+                    pr: { md: theme.spacing(4) },
+                    mb: { xs: theme.spacing(3), md: 0 },
                 }}
             >
                 <Typography
                     component="h1"
                     sx={{
-                        margin: 0,
-                        fontFamily:
-                            '"Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+                        m: 0,
                         fontWeight: 800,
-                        fontSize: "1.5rem",
+                        fontSize: { xs: "1.5rem", sm: "2.25rem", md: "2.625rem", lg: "3rem" },
                         lineHeight: 1.25,
-                        [theme.breakpoints.up("sm")]: { fontSize: "2.25rem" },
-                        [theme.breakpoints.up("md")]: { fontSize: "2.625rem" },
-                        [theme.breakpoints.up("lg")]: { fontSize: "3rem" },
                         mb: 2,
                     }}
                     gutterBottom
                 >
                     {header}
                 </Typography>
-
                 <Typography variant="h6" gutterBottom sx={{ color: "text.secondary", mb: 3 }}>
                     {subheader}
                 </Typography>
-
-                {/* Przycisk wyśrodkowany (tylko na małych ekranach),
-            a na większych może zostać z lewej – dostosuj do potrzeb */}
                 <Box sx={{ textAlign: { xs: "left", md: "left" } }}>
                     <Button variant="contained" color="primary" size="large">
                         {buttonText}
@@ -73,7 +63,7 @@ const Banner = ({
                 </Box>
             </Box>
 
-            {/* PRAWA KOLUMNA: OBRAZ */}
+            {/* Prawa kolumna: Obraz */}
             <Box
                 sx={{
                     flex: 1,
@@ -83,7 +73,6 @@ const Banner = ({
             >
                 <Box
                     component="img"
-                    // Na mniejszych ekranach obrazek ukrywamy
                     src={imageSrc}
                     alt="Sportowa grafika"
                     sx={{

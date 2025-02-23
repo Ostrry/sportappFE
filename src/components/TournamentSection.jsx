@@ -1,3 +1,4 @@
+// plik: src/components/TournamentSection.jsx
 import React from "react";
 import {
     Container,
@@ -7,20 +8,21 @@ import {
     CardMedia,
     Typography,
     CardActions,
-    Button, Box,
+    Button,
+    Box,
 } from "@mui/material";
-import { keyframes } from "@mui/system";
+import { keyframes, useTheme } from "@mui/system";
 
-// Definicja keyframes dla animacji wejścia (fade in + slide up)
+// Definicja animacji wejścia (fade in + slide up)
 const fadeInUp = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 `;
 
 // Przykładowe dane turniejów
@@ -78,14 +80,22 @@ const tournaments = [
 ];
 
 const TournamentSection = () => {
+    const theme = useTheme();
+
     return (
-        <Container sx={{ my: 4 }}>
-            <Typography sx={{fontFamily:
-                    '"Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-                fontWeight: 800}} variant="h4" gutterBottom>
+        <Container sx={{ my: theme.spacing(4) }}>
+            <Typography
+                variant="h4"
+                gutterBottom
+                sx={{
+                    fontFamily: theme.typography.fontFamily,
+                    fontWeight: 800,
+                    mb: theme.spacing(3),
+                }}
+            >
                 Najnowsze Turnieje
             </Typography>
-            <Grid container spacing={2}>
+            <Grid container spacing={theme.spacing(2)}>
                 {tournaments.map((tournament, index) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
                         <Card
@@ -103,24 +113,24 @@ const TournamentSection = () => {
                                 }}
                             >
                                 <CardMedia
-                                    component="img"
-                                    height="140"
-                                    image={tournament.image}
-                                    alt={tournament.title}
-                                />
-                                <CardContent>
-                                    <Typography variant="subtitle1" component="div" gutterBottom>
-                                        {tournament.title}
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {new Date(tournament.date).toLocaleDateString()}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small">Zobacz szczegóły</Button>
-                                </CardActions>
+                                component="img"
+                                height="140"
+                                image={tournament.image}
+                                alt={tournament.title}
+                            />
+                            <CardContent>
+                                <Typography variant="subtitle1" component="div" gutterBottom>
+                                    {tournament.title}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    {new Date(tournament.date).toLocaleDateString()}
+                                </Typography>
+                            </CardContent>
+                            <CardActions>
+                                <Button size="small">Zobacz szczegóły</Button>
+                            </CardActions>
                             </Box>
-                        </Card>
+                            </Card>
                     </Grid>
                 ))}
             </Grid>

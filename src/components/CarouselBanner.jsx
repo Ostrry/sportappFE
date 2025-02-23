@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import Banner from "./Banner";
 
 const CarouselBanner = () => {
-    // Przykładowe dane dla slajdów
+    const theme = useTheme();
     const slides = [
         {
-            backgroundImage: "",
+            backgroundImage: "", // możesz ustawić tło lub pozostawić puste
             imageSrc: "/Sp1.png",
             header: "Dołącz do Sportowej Rywalizacji",
             subheader: "Znajdź mecze, turnieje i drużyny w Twojej okolicy!",
@@ -30,22 +30,14 @@ const CarouselBanner = () => {
 
     const [activeIndex, setActiveIndex] = useState(0);
 
-    // Kliknięcie w kropkę
     const handleDotClick = (index) => {
         setActiveIndex(index);
     };
 
     return (
         <>
-            {/* Kontener karuzeli */}
             <Box sx={{ position: "relative", overflow: "hidden" }}>
-                <Box
-                    sx={{
-                        position: "relative",
-                        width: "100%",
-                        minHeight: 400,
-                    }}
-                >
+                <Box sx={{ position: "relative", width: "100%", minHeight: 400 }}>
                     {slides.map((slide, index) => (
                         <Box
                             key={index}
@@ -66,14 +58,13 @@ const CarouselBanner = () => {
                 </Box>
             </Box>
 
-            {/* Kropki (dot navigation) - poza karuzelą */}
             <Box
                 sx={{
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
                     gap: 1,
-                    mt: 1, // niewielki odstęp od karuzeli
+                    mt: theme.spacing(1),
                 }}
             >
                 {slides.map((_, index) => {
@@ -83,7 +74,7 @@ const CarouselBanner = () => {
                             key={index}
                             onClick={() => handleDotClick(index)}
                             sx={{
-                                width: isActive ? 18 : 10, // aktywna kropka – nieco dłuższa
+                                width: isActive ? 18 : 10,
                                 height: 10,
                                 borderRadius: 5,
                                 background: isActive

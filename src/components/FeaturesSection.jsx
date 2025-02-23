@@ -1,20 +1,21 @@
+// plik: src/components/FeaturesSection.jsx
 import React from "react";
 import { Container, Grid, Box, Typography, Paper } from "@mui/material";
 import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import GroupIcon from "@mui/icons-material/Group";
 import EventIcon from "@mui/icons-material/Event";
-import { keyframes } from "@mui/system";
+import { keyframes, useTheme } from "@mui/system";
 
 // Definicja animacji wejścia (fade in + slide up)
 const fadeInUp = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 `;
 
 const featuresSection = [
@@ -36,20 +37,28 @@ const featuresSection = [
 ];
 
 const FeaturesSection = () => {
+    const theme = useTheme();
+
     return (
-        <Container sx={{ mt: 6 }}>
-            <Typography sx={{fontFamily:
-                    '"Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-                fontWeight: 800}} variant="h4" gutterBottom>
+        <Container sx={{ mt: theme.spacing(6) }}>
+            <Typography
+                variant="h4"
+                gutterBottom
+                sx={{
+                    fontFamily: theme.typography.fontFamily,
+                    fontWeight: 800,
+                    mb: theme.spacing(3),
+                }}
+            >
                 Co oferujemy?
             </Typography>
-            <Grid container spacing={4}>
+            <Grid container spacing={theme.spacing(4)}>
                 {featuresSection.map((feature, index) => (
                     <Grid item xs={12} sm={4} key={index}>
                         <Paper
                             elevation={3}
                             sx={{
-                                p: 3,
+                                p: theme.spacing(3),
                                 textAlign: "center",
                                 borderRadius: 2,
                                 height: "100%",
@@ -72,19 +81,24 @@ const FeaturesSection = () => {
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center",
-                                    margin: "0 auto",
-                                    mb: 2,
-
+                                    mx: "auto",
+                                    mb: theme.spacing(2),
                                 }}
                             >
                                 {feature.icon}
                             </Box>
-                            <Typography variant="h6" sx={{ mt: 1, mb: 1, fontFamily:
-                                    '"Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-                                fontWeight: 800, }}>
+                            <Typography
+                                variant="h6"
+                                sx={{
+                                    mt: theme.spacing(1),
+                                    mb: theme.spacing(1),
+                                    fontFamily: theme.typography.fontFamily,
+                                    fontWeight: 800,
+                                }}
+                            >
                                 {feature.title}
                             </Typography>
-                            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                            <Typography variant="body2" color="text.secondary" sx={{ mt: theme.spacing(1) }}>
                                 {feature.description}
                             </Typography>
                         </Paper>
